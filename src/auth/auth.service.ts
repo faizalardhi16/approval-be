@@ -18,8 +18,8 @@ export class AuthService {
     return { accessToken: this.jwt.sign(payload), user: { id: user.id, email: user.email, name: user.name, role: user.role } }
   }
 
-  async register(dto: { email: string; password: string; name: string }) {
-    const user = await this.users.create({ ...dto, role: 'viewer' as any })
+  async register(dto: { email: string; password: string; name: string; role?: string }) {
+    const user = await this.users.create({ ...dto, role: (dto.role || 'viewer') as any })
     return { id: user.id, email: user.email, name: user.name, role: user.role }
   }
 }
